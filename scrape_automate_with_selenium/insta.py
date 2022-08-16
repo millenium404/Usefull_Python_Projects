@@ -34,7 +34,10 @@ username_el.send_keys(INSTA_USERNAME)
 password_el = browser.find_element('name', 'password')
 password_el.send_keys(INSTA_PASSWORD)
 time.sleep(1)
-# login_button.click()
+login_button.click()
+time.sleep(2)
+the_rock_url = 'https://instagram.com/therock/'
+browser.get(the_rock_url)
 
 
 # Wait for 'end' command to exit
