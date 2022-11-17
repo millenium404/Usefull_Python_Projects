@@ -17,14 +17,51 @@ def button_click(number):
 def button_add():
     first_number = e.get()
     global f_num
-    f_num = int(first_number)
+    global math
+    math = 'addition'
+    f_num = float(first_number)
     e.delete(0, END)
 
 
 def button_equal():
     second_number = e.get()
     e.delete(0, END)
-    e.insert(0, f_num + int(second_number))
+    global f_num
+    if math == 'addition':
+        e.insert(0, f_num + float(second_number))
+    if math == 'substraction':
+        e.insert(0, f_num - float(second_number))
+    if math == 'multiplication':
+        e.insert(0, f_num * float(second_number))
+    if math == 'division':
+        e.insert(0, f_num / float(second_number))
+
+
+def button_subtract():
+    first_number = e.get()
+    global f_num
+    global math
+    math = 'substraction'
+    f_num = float(first_number)
+    e.delete(0, END)
+
+
+def button_multiply():
+    first_number = e.get()
+    global f_num
+    global math
+    math = 'multiplication'
+    f_num = float(first_number)
+    e.delete(0, END)
+
+
+def button_divide():
+    first_number = e.get()
+    global f_num
+    global math
+    math = 'division'
+    f_num = float(first_number)
+    e.delete(0, END)
 
 
 # Define Buttons
@@ -55,6 +92,13 @@ button_equal = Button(
 button_clear = Button(
     root, text='CE', padx=87, pady=20, command=lambda: button_click('clear'))
 
+button_subtract = Button(
+    root, text='-', padx=41, pady=20, command=button_subtract)
+button_multiply = Button(
+    root, text='*', padx=41, pady=20, command=button_multiply)
+button_divide = Button(
+    root, text='/', padx=41, pady=20, command=button_divide)
+
 # Put Buttons on the screen
 button_1.grid(row=3, column=0)
 button_2.grid(row=3, column=1)
@@ -72,6 +116,10 @@ button_0.grid(row=4, column=0)
 button_add.grid(row=5, column=0)
 button_equal.grid(row=5, column=1, columnspan=2)
 button_clear.grid(row=4, column=1, columnspan=2)
+
+button_subtract.grid(row=6, column=0)
+button_multiply.grid(row=6, column=1)
+button_divide.grid(row=6, column=2)
 
 
 root.mainloop()
