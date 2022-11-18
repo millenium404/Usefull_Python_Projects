@@ -6,7 +6,7 @@ root = tk.Tk()
 root.title('Image Viewer')
 
 img_dir = f'{os.path.abspath(os.getcwd())}/img'
-files_list = [f'{file}' for file in os.listdir(img_dir) if '.png' in file]
+files_list = [f'{file}' for file in os.listdir(img_dir) if '.jpg' in file]
 
 img_list = []
 for file in files_list:
