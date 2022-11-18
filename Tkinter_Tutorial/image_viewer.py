@@ -1,10 +1,8 @@
 import os
 from PIL import ImageTk, Image
-from tkinter import Tk, Button, Label
+import tkinter as tk
 
-current_index = 0
-
-root = Tk()
+root = tk.Tk()
 root.title('Image Viewer')
 
 img_dir = f'{os.path.abspath(os.getcwd())}/img'
@@ -18,33 +16,48 @@ for file in files_list:
 
 labels_list = []
 for img in img_list:
-    label = Label(root, image=img)
+    label = tk.Label(root, image=img)
     labels_list.append(label)
 
 
+def change_statusbar():
+    global status
+    try:
+        status.grid_remove()
+    except:
+        pass
+    status = tk.Label(
+        root, 
+        text=f'Image {current_index + 1} of {len(labels_list)}',
+        bd=1,
+        relief=tk.SUNKEN)
+    status.grid(row=2, column=0, columnspan=3, sticky=tk.E+tk.W)
+
+
 def move(idx=0):
+    global current_index, my_label
     if idx >= len(labels_list) or idx < 0:
         idx = 0
-    global current_index
-    global my_label
-    my_label.grid_remove()
+    try:
+        my_label.grid_remove()
+    except:
+        pass
     current_index = idx
     my_label = labels_list[current_index]
     my_label.grid(row=1, column=0, columnspan=3)
+    change_statusbar()
 
 
-my_label = labels_list[current_index]
-my_label.grid(row=1, column=0, columnspan=3)
-
-button_back = Button(
+button_back = tk.Button(
     root, text='<<', command=lambda: move(current_index - 1))
-button_quit = Button(
+button_quit = tk.Button(
     root, text='Quit', command=root.quit)
-button_forward = Button(
+button_forward = tk.Button(
     root, text='>>', command=lambda: move(current_index + 1))
-
 button_back.grid(row=0, column=0)
 button_quit.grid(row=0, column=1)
 button_forward.grid(row=0, column=2)
 
+
+move()
 root.mainloop()
