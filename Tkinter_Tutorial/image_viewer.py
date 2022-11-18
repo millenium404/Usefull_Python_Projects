@@ -20,6 +20,19 @@ for img in img_list:
     labels_list.append(label)
 
 
+def create_buttons():
+    global current_index
+    button_back = tk.Button(
+        root, text='<<', command=lambda: move(current_index - 1))
+    button_quit = tk.Button(
+        root, text='Quit', command=root.quit)
+    button_forward = tk.Button(
+        root, text='>>', command=lambda: move(current_index + 1))
+    button_back.grid(row=0, column=0)
+    button_quit.grid(row=0, column=1)
+    button_forward.grid(row=0, column=2)
+
+
 def change_statusbar():
     global status
     try:
@@ -48,16 +61,6 @@ def move(idx=0):
     change_statusbar()
 
 
-button_back = tk.Button(
-    root, text='<<', command=lambda: move(current_index - 1))
-button_quit = tk.Button(
-    root, text='Quit', command=root.quit)
-button_forward = tk.Button(
-    root, text='>>', command=lambda: move(current_index + 1))
-button_back.grid(row=0, column=0)
-button_quit.grid(row=0, column=1)
-button_forward.grid(row=0, column=2)
-
-
+create_buttons()
 move()
 root.mainloop()
