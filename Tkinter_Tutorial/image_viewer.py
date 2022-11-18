@@ -18,14 +18,16 @@ for file in files_list:
 
 labels_list = []
 for img in img_list:
-    label = Label(image=img)
+    label = Label(root, image=img)
     labels_list.append(label)
 
 
 def move(idx=0):
+    if idx >= len(labels_list) or idx < 0:
+        idx = 0
     global current_index
     global my_label
-    my_label.destroy()
+    my_label.grid_remove()
     current_index = idx
     my_label = labels_list[current_index]
     my_label.grid(row=1, column=0, columnspan=3)
