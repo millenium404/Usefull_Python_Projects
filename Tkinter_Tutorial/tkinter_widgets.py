@@ -57,7 +57,7 @@ button_nwindow = Button(frame_1, text='New Window', command=open_window)
 button_nwindow.grid(row=2, column=2)
 
 
-# Creating Radio Buttons
+# Creating Radio Buttons and CheckBoxes
 frame_2 = LabelFrame(root, text='Second Frame in here', padx=50, pady=50)
 frame_2.grid(row=1, column=0, padx=10, pady=10)
 r = IntVar() # Tkinter internal Variable
@@ -83,6 +83,8 @@ def clicked(value):
 # Radiobutton(
 #     frame_2, text='Option 1', variable=r, value=1, command=lambda: clicked(
 #         r.get())).pack()
+
+# Checkbutton(frame_2, text='Check this box!', variable=r).pack(anchor=W)
 
 submit_button = Button(frame_2, text='Submit', command=lambda: clicked(pizza.get()))
 submit_button.pack()
