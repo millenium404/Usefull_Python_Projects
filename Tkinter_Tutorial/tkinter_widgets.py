@@ -6,6 +6,9 @@ from PIL import ImageTk, Image
 
 root = Tk()
 root.title('Some cool stuff in here')
+mwidth = root.winfo_screenwidth() # Get screen resolution
+mheight = root.winfo_screenheight() # Get screen resolution
+root.geometry(f'{mwidth}x{mheight}') # Set main window size
 base_dir = os.path.abspath(os.getcwd())
 # Can't get the icon stuff working for now
 # root.iconbitmap('/some_path_in_here/favico.ico')
@@ -41,6 +44,7 @@ def open_window():
     global top
     top = Toplevel()
     top.title('Image Window')
+    top.geometry(f'{mwidth // 2}x{mheight // 2}')
     button_open = Button(top, text='Open Image', command=open_image).pack()
     button_close = Button(top, text='Close', command=top.destroy).pack()
 
