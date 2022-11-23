@@ -57,7 +57,7 @@ state_label.grid(row=4, column=0)
 zipcode_label = Label(frame_1, text='Zip Code')
 zipcode_label.grid(row=5, column=0)
 
-#Create Submit function and button
+# Create Submit function and button
 def submit():
     conn = sqlite3.connect('address_book.db')
     c = conn.cursor()
@@ -75,7 +75,6 @@ def submit():
             'zipcode': zipcode.get(),
         })
 
-
     conn.commit()
     conn.close()
 
@@ -84,9 +83,26 @@ def submit():
         box.delete(0, END)
 
 
+def query():
+    conn = sqlite3.connect('address_book.db')
+    c = conn.cursor()
+    # Query the database
+    c.execute("SELECT *, oid FROM addresses")
+    records = c.fetchall()
+    records_string = ''
+    for record in records:
+        for item in record:
+            records_string += str(item) + ' '
+        records_string += '\n'
+
+    query_label = Label(frame_1, text=records_string)
+    query_label.grid(row=8, column=0, columnspan=2, pady=10)
+
 
 submit_btn = Button(frame_1, text='Add Record', command=submit)
 submit_btn.grid(row=6, column=0, columnspan=2, pady=10, ipadx=50)
+query_btn = Button(frame_1, text='Show Records', command=query)
+query_btn.grid(row=7, column=0, columnspan=2, pady=10, ipadx=50)
 
 # Commit Changes
 conn.commit()
