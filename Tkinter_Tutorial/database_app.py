@@ -5,8 +5,8 @@ import sqlite3
 
 root = Tk()
 root.title('Some cool stuff in here')
-mwidth = int(root.winfo_screenwidth() // 1.5) # Get screen resolution
-mheight = int(root.winfo_screenheight() // 1.3) # Get screen resolution
+mwidth = int(root.winfo_screenwidth() // 3) # Get screen resolution
+mheight = int(root.winfo_screenheight() // 1.5) # Get screen resolution
 root.geometry(f'{mwidth}x{mheight}') # Set main window size
 base_dir = os.path.abspath(os.getcwd())
 
@@ -41,6 +41,7 @@ state = Entry(frame_1, width=30)
 state.grid(row=4, column=1, padx=20, pady=5)
 zipcode = Entry(frame_1, width=30)
 zipcode.grid(row=5, column=1, padx=20, pady=5)
+tboxes_list = [f_name, l_name, address, city, state, zipcode]
 
 # Create Text Box Labels
 f_name_label = Label(frame_1, text='First Name')
@@ -55,6 +56,37 @@ state_label = Label(frame_1, text='State')
 state_label.grid(row=4, column=0)
 zipcode_label = Label(frame_1, text='Zip Code')
 zipcode_label.grid(row=5, column=0)
+
+#Create Submit function and button
+def submit():
+    conn = sqlite3.connect('address_book.db')
+    c = conn.cursor()
+   
+    # Insert into Table
+    c.execute(
+        f"INSERT INTO addresses VALUES "
+        f"(:f_name, :l_name, :address, :city, :state, :zipcode)",
+        {
+            'f_name': f_name.get(),
+            'l_name': l_name.get(),
+            'address': address.get(),
+            'city': city.get(),
+            'state': state.get(),
+            'zipcode': zipcode.get(),
+        })
+
+
+    conn.commit()
+    conn.close()
+
+    # Clear The Text Boxes
+    for box in tboxes_list:
+        box.delete(0, END)
+
+
+
+submit_btn = Button(frame_1, text='Add Record', command=submit)
+submit_btn.grid(row=6, column=0, columnspan=2, pady=10, ipadx=50)
 
 # Commit Changes
 conn.commit()
