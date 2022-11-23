@@ -89,4 +89,21 @@ def clicked(value):
 submit_button = Button(frame_2, text='Submit', command=lambda: clicked(pizza.get()))
 submit_button.pack()
 
+# Creating dropdown menus
+def show():
+    myLabel = Label(frame_3, text=clicked.get()).pack()
+
+
+frame_3 = LabelFrame(root, text='Third Frame in here', padx=50, pady=50)
+frame_3.grid(row=1, column=1, padx=10, pady=10)
+clicked = StringVar()
+clicked.set('Monday')
+options = [
+    'Monday', 
+    'Tuesday', 
+    'Wednesday']
+drop = OptionMenu(frame_3, clicked, *options)
+drop.pack()
+button_show = Button(frame_3, text='Show Selection', command=show).pack()
+
 root.mainloop()
