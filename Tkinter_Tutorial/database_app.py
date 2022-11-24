@@ -42,6 +42,8 @@ state.grid(row=4, column=1, padx=20, pady=5)
 zipcode = Entry(frame_1, width=30)
 zipcode.grid(row=5, column=1, padx=20, pady=5)
 tboxes_list = [f_name, l_name, address, city, state, zipcode]
+delete_box = Entry(frame_1, width=30)
+delete_box.grid(row=9, column=1, padx=20, pady=5)
 
 # Create Text Box Labels
 f_name_label = Label(frame_1, text='First Name')
@@ -56,6 +58,21 @@ state_label = Label(frame_1, text='State')
 state_label.grid(row=4, column=0)
 zipcode_label = Label(frame_1, text='Zip Code')
 zipcode_label.grid(row=5, column=0)
+# delete_box_label = Label(frame_1, text='ID Number')
+# delete_box.grid(row=9, column=0)
+
+
+# Delete SQL Record
+def delete():
+    conn = sqlite3.connect('address_book.db')
+    c = conn.cursor()
+
+    c.execute(f"DELETE from addresses WHERE oid={delete_box.get()}")
+    delete_box.delete(0, END)
+
+    conn.commit()
+    conn.close()
+
 
 # Create Submit function and button
 def submit():
@@ -103,6 +120,8 @@ submit_btn = Button(frame_1, text='Add Record', command=submit)
 submit_btn.grid(row=6, column=0, columnspan=2, pady=10, ipadx=50)
 query_btn = Button(frame_1, text='Show Records', command=query)
 query_btn.grid(row=7, column=0, columnspan=2, pady=10, ipadx=50)
+delete_btn = Button(frame_1, text='Delete Record', command=delete)
+delete_btn.grid(row=10, column=0, columnspan=2, pady=10, ipadx=50)
 
 # Commit Changes
 conn.commit()
