@@ -8,6 +8,7 @@ root.title('Some cool stuff in here')
 mwidth = int(root.winfo_screenwidth() // 3) # Get screen resolution
 mheight = int(root.winfo_screenheight() // 1.5) # Get screen resolution
 root.geometry(f'{mwidth}x{mheight}') # Set main window size
+# root.configure(background='white')
 base_dir = os.path.abspath(os.getcwd())
 
 # Create Database or connect to one
@@ -16,13 +17,16 @@ conn = sqlite3.connect('address_book.db')
 c = conn.cursor()
 
 # Create Table
-# c.execute("""CREATE TABLE addresses (
-#         first_name text,
-#         last_name text,
-#         address text,
-#         city text,
-#         state text,
-#         zipcode integer)""")
+try:
+    c.execute("""CREATE TABLE addresses (
+            first_name text,
+            last_name text,
+            address text,
+            city text,
+            state text,
+            zipcode integer)""")
+except sqlite3.OperationalError:
+    pass
 
 # Frame for registration
 frame_1 = LabelFrame(root, text='Register User', padx=50, pady=50)
